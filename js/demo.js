@@ -6,7 +6,6 @@ var weixinimgindex=0;
 	}
 	
 	function showImg(ele,key){
-		console.log("ele:"+ele);
 		$("#frameimg"+key).replaceWith(ele);
 	}
 	
@@ -123,7 +122,6 @@ window.onload = function(){
         }else{
             $(".yulans").html(stextArea);
             $("#myModal").hide();
-            console.log(stextArea);
         }
     }else{
         $("#myModal").hide();
@@ -152,7 +150,7 @@ window.onload = function(){
  // 选择群发对象标签
  var sid = '';
     $.ajax({
-        url: "http://test.micejiazu.cn/tagsCtrl/get.do",
+        url: path+"/tagsCtrl/get.do",
         type: "post",
         data: {
             appid:getQueryString("appid"),
@@ -163,21 +161,17 @@ window.onload = function(){
         success: function (data) {
             $.each(data.tags,function(index,obj){
                 var json = $.parseJSON(JSON.stringify(obj));
-                // console.log(json)
                 $(".duixiang ul").append(`
                      <li id='${json.id}'>${json.name}</li>
                 `)
                 // var all =  <li id='all'>所有粉丝</li>
                 // $("duixiang ul").html(all)
-                // console.log(all)
  // 选中标签
            $(".duixiang ul li").click(
             function() {
                 $(this).css("background","#6f7eff").siblings().css("background","#fff");
                 // var ids = $(this).attr("id")
                  sid = $(this).attr("id")
-                // $("#tagid").val(ids);
-                console.log(sid)
                 
          });
           
@@ -189,7 +183,7 @@ window.onload = function(){
  //////////////////////////////////// 同步图文消息列表
  $(".tongbu").click(function(){
     $.ajax({
-        url: "http://test.micejiazu.cn/message/getMaterialList.do",
+        url: path+"/message/getMaterialList.do",
         type: "post",
         async: true,
         data: {
@@ -203,8 +197,6 @@ window.onload = function(){
             $(".ss").empty()
             $.each(data.item, function (index, obj) {
                 var json = $.parseJSON(JSON.stringify(obj));
-                // console.log(JSON.stringify(obj));
-                console.log(json.media_id)
                 
                 // 时间戳
                 var date = new Date(json.update_time*1000);
@@ -238,7 +230,6 @@ window.onload = function(){
                 }else{
                     // 单图文
                 $.each(obj.content.news_item,function(index, obj){
-                    // console.log(" obj:"+obj.title+" times:"+times);
                     $(".ss").append(`
                             <div class="grap" media_id="${json.media_id}">
                                 <p><span>${times}</span><a href="${obj.url}" target="_blank">查看链接</a></p>
@@ -260,7 +251,6 @@ window.onload = function(){
                                 $(this).find('.mase').show();
                                 var meadid=$(this).attr("media_id")
                                 $("#tagid").val(meadid)
-                                console.log(meadid)
                             }else{
                                 $(this).find('.mase').hide();
                             }
@@ -300,7 +290,7 @@ $("#once").click(function(){
         }
     }
     $.ajax({
-        url:'http://test.micejiazu.cn/message/sendAllToLabel.do',
+        url:path+'/message/sendAllToLabel.do',
         type:"post",
         data:params,
         dataType:"json",
@@ -336,7 +326,7 @@ $("#once").click(function(){
             }
         }
         $.ajax({
-            url:'http://test.micejiazu.cn/message/sendKFMsgToLable.do',
+            url:path+'/message/sendKFMsgToLable.do',
             type:"post",
             data:params,
             dataType:"json",
@@ -352,14 +342,13 @@ $("#once").click(function(){
     }else if(sify=="templ"){
         var params=templateparm()
         alert("模板群发")
-        alert(params)
         param={
-            appid:'wx35bca71d3ae21094',
-            label:112,
+            appid:getQueryString("appid"),
+            label:sid,
             templateMsg:params
         }
         $.ajax({
-            url:'http://192.168.0.206:8080/WechatManagePlatform/message/sendTemplateMsg.do',
+            url:path+'/message/sendTemplateMsg.do',
             type:"post",
             data:param,
             dataType:"json",
@@ -375,31 +364,26 @@ $("#once").click(function(){
 
 $("#fasong").click(function(){
     $.ajax({
-        url: "http://test.micejiazu.cn/message/querySendRecord.do",
+        url: path+"/message/querySendRecord.do",
         type: "post",
         async: true,
         data: {
-            appid:"wx35bca71d3ae21094",
-            // getQueryString("appid"),
+            appid:getQueryString("appid"),
             pageSize:10,
             currentPage:1,
         },
         dataType: "json",
         success: function (data) {
              var json = $.parseJSON(JSON.stringify(data));
-             console.log("data="+json)
                 
             $(".empt").empty()
             $.each(data,function(index,obj){
-                //console.log(obj.conten)
 
                 var json = $.parseJSON(JSON.stringify(obj.content));
                 var content;
                 if(obj.msgType == "mpnews"){
                     content = $.parseJSON(json);
-                    console.log(content.news_item[0].title)
                     var news_length = content.news_item.length;
-                    // console.log(news_length)
                     if(news_length>=1){
                         var begin = `
                         <div class="empt">
@@ -411,7 +395,6 @@ $("#fasong").click(function(){
                                    <em>${content.news_item[0].title}</em>
                         `
                         var mains = '';
-                        console.log(content.news_item.length)
                             for(var i=0;i<content.news_item.length;i++){
                                 mains += `
                                 <div class="image-two">
@@ -438,7 +421,6 @@ $("#fasong").click(function(){
                 m = date.getMinutes() + ':';
                 s = date.getSeconds();
                 createTime = Y+M+D+h+m+s;
-                console.log(createTime)
                     var html=`
                         <div class="empt">
                         <div class="neirong">
@@ -469,7 +451,6 @@ $("#fasong").click(function(){
                        
                         $(".send-one").append(html.format(obj.content,sendType, msgStatus));
                     }else if(obj.msgType == "mpnews"){
-                        console.log( msgStatus)
                         content = $.parseJSON(json);
                         $(".send-one").append((begin+mains+imagetext).format(sendType, msgStatus));
                     }
