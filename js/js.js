@@ -14,8 +14,8 @@ $(function(){
         $('.groupsbox').show()
     })
 })
-var testUrl = "http://test.micejiazu.cn";//测试域名
-//var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
+//var testUrl = "http://test.micejiazu.cn";//测试域名
+var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 
 // 登陆
     var login = function(){

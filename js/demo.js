@@ -1,4 +1,16 @@
-   window.onload = function(){
+var weixinimgindex=0;
+	function loadweixinimg(url) {
+	      weixinimgindex++;
+	      window['img'+weixinimgindex] = '<img id="img' + weixinimgindex + '" src=\'' + url + '?' + Math.random() + '\' onload=\'parent.showImg(this,'+weixinimgindex+');\'/>';
+	      return '<iframe id="frameimg' + weixinimgindex + '" src="javascript:parent.img'+weixinimgindex+';" style="display: none;"></iframe>';
+	}
+	
+	function showImg(ele,key){
+		console.log("ele:"+ele);
+		$("#frameimg"+key).replaceWith(ele);
+	}
+	
+window.onload = function(){
            $(".cont").show();
            $(".yulan").show();
            $(".send").hide();
@@ -206,18 +218,19 @@
                 // 时间戳结束
                 var html = '';
                 var news_item_length = obj.content.news_item.length;
-                // 多图文
+                // 多图文 <img src="${obj.content.news_item[0].thumb_url}">
                 if(news_item_length>1){
                     var start = `<div class="grap" media_id="${json.media_id}">
                     <p><span>${times}</span><a href="${obj.content.news_item[0].url}" target="_blank">查看链接</a></p>
-                    <div class="tuwenimg"> <img src="${obj.content.news_item[0].thumb_url}"></div>
+                    <div class="tuwenimg">`+loadweixinimg(obj.content.news_item[0].thumb_url)+`</div>
                     <em>${obj.content.news_item[0].title}</em>`;
 
+					
                     var body = "";
                     for(var i=1;i<obj.content.news_item.length;i++){
                         body +=  `<div class="grap-one">
                         <span>${obj.content.news_item[i].title}</span>
-                        <img src="${obj.content.news_item[i].thumb_url}">
+                        `+loadweixinimg(obj.content.news_item[i].thumb_url)+`
                      </div>`;
                     }
                     var end =  `<div class="mase"></div> `;
@@ -229,7 +242,7 @@
                     $(".ss").append(`
                             <div class="grap" media_id="${json.media_id}">
                                 <p><span>${times}</span><a href="${obj.url}" target="_blank">查看链接</a></p>
-                                <div class="tuwenimg"> <img src="${obj.thumb_url}"></div>
+                                <div class="tuwenimg">`+loadweixinimg(obj.thumb_url)+`
                                 <em>${obj.title}</em>
                                 <div class="mase"></div>
                             </div>
