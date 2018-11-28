@@ -1,0 +1,27 @@
+body{
+    background:#f1f6ff;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.left,.right{
+    background-color:#fff; 
+    padding: 20px;
+    border-radius: 5px;
+}
+.zanwu{
+    position: relative;
+    padding: 16px 8px;
+    background: #fff;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.43);
+    z-index: 1;
+}
+.tableBox{
+    margin-top: 20px;
+}

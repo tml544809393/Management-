@@ -1,0 +1,363 @@
+/* 清除默认样式 */
+body,p,h1{
+    margin: 0;
+}
+ul{margin: 0;padding: 0;}
+li{list-style: none;}
+a{text-decoration: none;color: inherit;}
+a:link{text-decoration: none}
+a:visited{text-decoration: none}
+a:active{text-decoration: none}
+a:hover{text-decoration: none}
+input{  background:none;  outline:none;  border:0px;}
+input:focus { outline: none; } 
+
+/* 公共样式 */
+body{
+    font-family: "微软雅黑";
+    font-size: 16px;
+    color: #666;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clearFix:after{
+    content: " ";
+    display: block;
+    clear: both;
+}
+.width75{
+    width: 75%;
+    margin: 0 auto;
+}
+/* 头部 */
+.header{
+    width: 100%;
+    background-color: #fff;
+}
+.navUl{
+    padding-left:182px; 
+    padding-top: 26px;
+    margin-bottom: 23px;
+    position: relative;
+}
+.navUl li{
+    float: left;
+    margin: 0 20px;
+    text-align: center;
+    color:#666;
+}
+.navUl .hover{
+    color: #f36966;
+}
+.navUl li span {
+    font-size: 12px; 
+}
+.navUl li p {
+    font-size: 16px; 
+    margin-top: 10px;
+}
+.logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* 内容 */
+/* 第一部分 */
+.oneDiv{
+    width: 100%;
+    height: 482px;
+    background:url('../images/1-bj.png') no-repeat;
+    background-size:100% 100%; 
+}
+.oneDivBox{
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    padding-top:150px; 
+}
+.oneDivBox h1{
+    font-size: 50px;
+    color: #f36966;
+    font-family: "黑体";
+    font-weight: bold;
+}
+.oneDivBox p{
+    font-size: 18px;
+    color: #666;
+    margin-top: 28px;
+}
+.oneDivfrom{
+    width: 570px;
+    height: 88px;
+    background-color: rgba(0, 0, 0, .6);
+    margin: 0 auto;
+    border-radius:10px; 
+    margin-top: 78px;
+    padding-top: 10px;
+}
+.oneDivfromradie{
+    text-align: left;
+    padding-left:13px;
+    color: #fff;
+    font-size: 12px; 
+    line-height: 14px;
+}
+.oneDivfrominput{
+    width: 550px;
+    height: 33px;
+    border-radius: 20px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 12px;
+}
+.oneDivfrominput input[type=text]{
+    width: 300px;
+    height: 33px;
+    padding-left:16px; 
+}
+.oneDivfrominput input[type=button]{
+    width: 151px;
+    height: 33px;
+    background-color: #f36966;
+    color: #fff;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+/* 第二部分 */
+.twoDiv{
+    padding-top:19px;
+    padding-bottom: 20px; 
+}
+.twoDiv ul{
+    width: 50%;
+    margin: 0 auto;
+}
+.twoDiv ul li{
+    width: 189px;
+    float: left;
+    text-align: center;
+}
+.twoDiv ul li img{
+   width: 100px;
+   height: 100px;
+   margin-bottom: 10px;
+}
+.twoDiv ul li p{
+    font-size: 16px;
+    color: #666;
+    
+ }
+ .threeDiv{
+    height: 400px;
+    background:url('../images/3-bj.png') no-repeat;
+    background-size:100% 100%; 
+    padding-right: 106px;
+    padding-top: 50px;
+ }
+ /* 第三部分 */
+ .threeDivTitle{
+     font-size: 40px;
+     font-family: "黑体";
+     font-weight: bold;
+     color: #f36966;
+     border-bottom: 2px solid #f36966;
+     display: inline-block;
+ }
+ .threeDivTitle span{
+     font-size: 56px;
+ }
+ .threeList{
+     margin-top: 20px;
+ }
+.threeList li{
+    background: url('../images/3-icon.png') no-repeat;
+    background-size:13px 12px;
+    background-position:7px 5px;   
+    padding-left:33px; 
+    margin-bottom: 10px;
+}
+.liaojieButton{
+    height: 32px;
+    color: #fff;
+    line-height: 32px;
+    background-color: #f36966;
+    padding:0 44px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 20px
+}
+/* 第四部分 */
+.fourDiv{
+    text-align: center;
+}
+.fourtitle{
+    width: 480px;
+    margin: 0 auto;
+}
+.fourtitle img{
+    width: 100%;
+}
+.fourLists{
+    margin-top: 50px;
+}
+/* 第五部分 */
+.fiveDiv{
+    text-align: center;
+}
+.fivetitle{
+    width: 745px;
+    margin: 0 auto;
+}
+.fivetitle img{
+    width: 100%;
+}
+.fiveListBox{
+    width: 100%;
+    height: 266px;
+    position: relative;
+}
+.fiveListBox img{
+    width: 445px;
+    height: 330px;
+    position: absolute;
+    left: 42px;
+    top: 0;
+    z-index: 10;
+}
+.fiveListfoot{
+    width: 100%;
+    height: 111px;
+    position: absolute;
+    bottom: 0;
+    background-color: #f36966;
+}
+.fiveListJS{
+    width: 574px;
+    text-align: left;
+    font-family: "黑体";
+    padding-top: 38px;
+    margin-right: 20px;
+}
+.fiveListName{
+    color: #f36966;
+    font-size: 24px;
+    
+}
+.fiveListNameZY{
+    color: #f36966;
+    font-size: 16px;
+    margin-bottom:15px;
+    margin-top: 12px; 
+    display: block;
+}
+.fiveListWz{
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 10px;
+}
+.guodu{
+    width:329px;
+    height:2px;
+    background-color:#f36966;
+}
+/* 第六部分 */
+.sixDiv{
+    width: 100%;
+    background: #fff3f4;
+    text-align: center;
+    padding-top: 65px;
+    padding-bottom: 60px;
+}
+.sixtitle{
+    width: 745px;
+    margin: 0 auto;
+}
+.sixtitle img{
+    width: 100%;
+}
+.sixtext{
+    margin-top: 50px;
+}
+.sixAnlifenxi,.sixChenggong{
+    width: 50%;
+}
+.sixDivs{
+    margin: 0 auto;
+    padding-top: 30px;
+}
+.sevenDiv{
+
+}
+.seventitle{
+    width: 745px;
+    margin: 0 auto;
+}
+.seventitle img{
+    width: 100%;
+}
+.eightDiv{
+    background-color: #f1f1f1;
+    padding-top: 40px;
+    padding-bottom:33px; 
+}
+.eightList{
+    width: 400px;
+    margin-top: 45px;
+}
+.eightList li{
+    float: left;
+    margin: 16px 18px;
+    font-size: 12px;
+    color: #666;
+}
+.eightList .aaa{
+    color: #f36966
+}
+.eightBox{
+    width: 50%;
+    margin: 0 auto;
+}
+.erweima{
+    width: 137px;
+    text-align: center;
+    font-size:14px; 
+    margin-top: 20PX;
+}
+.erweima img{
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+.eighthr{
+    margin-left: 127px;
+    width: 2px;
+    height: 176px;
+    background-color: #f36966;
+    margin-right: 30px;
+}
+
+
+
+
+footer{
+    text-align: center;
+    font-size:13px;
+    color: #666;
+    line-height: 20px;
+    font-family: "黑体";
+    font-weight: bold;
+    padding-top: 23px;
+    padding-bottom: 20px;
+}
+
+/* 占位图片 */
+.zhanweiImg img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}

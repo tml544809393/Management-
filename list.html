@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粉丝列表</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/list.css">
+    <script src="js/jquery-2.2.4.js"></script>
+    <script src="js/js.js"></script>
+</head>
+<body>
+
+<nav class="topbar">
+    <div class="navs">
+        <a class="titles" href="#">源点互动</a>
+        <div class="clearfix">
+            <ul class="lis pull-left"></ul>
+            <button type="button" class="btn btn-default pull-right" style="margin-right: 52px;margin-top: 10px" id="out">登出</button>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <div class=" row">
+        <div class=" col-sm-3 col-md-3 col-xl-3">
+            <div class="left">
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">粉丝昵称或Openid</label>
+                        <input type="text" class="form-control" placeholder="请输入粉丝昵称或Openid">
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">微信标签</label>
+                        <input type="text" class="form-control" placeholder="微信标签">
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">最近关注来源</label>
+                        <input type="text" class="form-control" placeholder="最近关注来源">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">关注状态</label>
+                    <div>
+                        <input class="btn btn-default" type="button" value="全部">
+                        <input class="btn btn-default" type="button" value="关注中">
+                        <input class="btn btn-default" type="button" value="取消关注">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">性别</label>
+                    <div>
+                        <input class="btn btn-default" type="button" value="全部">
+                        <input class="btn btn-default" type="button" value="男">
+                        <input class="btn btn-default" type="button" value="女">
+                        <input class="btn btn-default" type="button" value="未知">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">粉丝地域</label>
+                    <div>
+                        <select class="form-control">
+                            <option>全部地区</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <input type="button" value="搜索" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-9 col-md-9 col-xl-9">
+            <div class="right">
+                <p>搜索到0个粉丝</p>
+                <div>
+                    <button type="button" class="btn btn-primary">同步数据</button>
+                    <button type="button" class="btn btn-default">批量操作</button>
+                    <button type="button" class="btn btn-default">导出粉丝</button>
+                    <button type="button" class="btn btn-default">黑名单</button>
+                </div>
+                <table class="table tableBox">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" disabled="" >
+                            </th>
+                            <th>粉丝昵称</th>
+                            <th>地域</th>
+                            <th>关注来源</th>
+                            <th>关注时间</th>
+                            <th>互动数</th>
+                            <th>上次互动时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="active">
+                                <input type="checkbox" disabled="" >
+                            </td>
+                            <td class="active" >
+                                <img src="http://thirdwx.qlogo.cn/mmopen/v8IXFbcTbC7HicVRTQS0KTGJLDfqPHkB6gZZfialDhrNYZKVRRZibibibIY5qicvTKEm6u8w6QOyJPcLk3ZyR7J07oWhbiajvuxCogC/132" width="18" height="18"/>
+                                <span>คิดถึงfannie</span>
+                            </td>
+                            <td class="active">中国 北京 朝阳</td>
+                            <td class="active">普通二维码</td>
+                            <td class="active">3天</td>
+                            <td class="active">1</td>
+                            <td class="active">2018-11-10 18:30</td>
+                        </tr>
+                        <tr >
+                            <td class="active">
+                                <input type="checkbox" disabled="" >
+                            </td>
+                            <td class="active" >
+                                <img src="http://thirdwx.qlogo.cn/mmopen/Q3auHgzwzM65icgey95ojkejx7Ms9KibHBQoZz5ia5mknAgMUFMO2vDlF9dK5ricGAUjZCbYony6vINvUYicibtHYWY9elO7Z11hN34aia5fYRnv2k/132" width="18" height="18"/>
+                                <span>康嘉管材</span>
+                            </td>
+                            <td class="active"></td>
+                            <td class="active">公众号迁徙</td>
+                            <td class="active">4天</td>
+                            <td class="active">1</td>
+                            <td class="active">2018-11-10 18:30</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 无消息时显示 -->
+                <!-- <div class="zanwu">暂无粉丝</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
