@@ -519,7 +519,7 @@ ol{
 .MWfhi {
     margin-top: 30px;
     width: 450px;
-    border:1px solid #ccc;
+    
 }
 .dCeaqE{
     border-bottom: 1px solid #ccc;
@@ -564,6 +564,7 @@ ol{
 .template-two {
     padding:20px;
     display: none;
+    border:1px solid #ccc;
 }
 .template-two ul {
 
