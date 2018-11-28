@@ -10,12 +10,12 @@ $(function(){
         
     })
     //显示创建新标签 窗口
-    $('.addbox').click(function(){
+    $('#addbox').click(function(){
         $('.groupsbox').show()
     })
 })
 var testUrl = "http://test.micejiazu.cn";//测试域名
-// var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
+//var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 
 // 登陆
     var login = function(){
@@ -31,7 +31,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
                 password:password
             },
             success: function(data){
-                window.location.href = "weixin.html?token="+data.token;
+                window.location.href = testUrl+"/html/weixin.html";
             }
         });
     }
@@ -114,6 +114,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
                 },
                 success: function(data){
                     console.log(data)
+                    
                     window.location.reload()
                 }
             });
@@ -171,6 +172,8 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
                         res += `<td class="active">图文页内名称点击</td>`
                     }else if(element.subscribeScene == "ADD_SCENE_PROFILE_ITEM"){
                         res += `<td class="active">图文页右上角菜单</td>`
+                    }else if(element.subscribeScene == "ADD_SCENE_PROFILE_LINK"){
+                        res += `<td class="active">图文页内名称点击</td>`
                     }else if(element.subscribeScene == "ADD_SCENE_PAID"){
                         res += `<td class="active">支付后关注</td>`
                     }else if(element.subscribeScene == "ADD_SCENE_OTHERS"){
@@ -182,13 +185,14 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
     }
     // 粉丝查询，查找，搜索
     var listSousuo = function(){
+        console.log()
         let data = {
             appid:getQueryString("appid"),
-            openid: $('input[name=openid]').val(),
+            nickname: $('input[name=openid]').val(),
             tagidList: $('#xuanzeBiaoqian').val(),
             subscribeScene: $('#guanzhulaiyuan').val(),
-            subscribe: $('input[name=subscribe]').val(),
-            sex: $('input[name=sex]').val(),
+            subscribe: $('input[name="subscribe"]:checked').val(),
+            sex: $('input[name="sex"]:checked').val(),
             country: '',
             province: '',
             city: '',
@@ -203,7 +207,8 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
             success: function(data){
                 // console.log(data)
                 if(data == ''){
-                    $('.zanwu').show().html('暂无结果');
+                    $('.zanwu').show();
+                    $('.zanwu').html('暂无结果');
                 }else{
                     fensiLists(data);
                 }
@@ -265,7 +270,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
         console.log(data)
         overOn(opt,data)
     }
-    
+    // 开始批量 接口调用
     var overOn = function(s,datas){
         if(s == 0){ //添加
             $.ajax({ 
@@ -277,6 +282,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
                 },
                 success: function(data){
                     console.log(data);
+                    alert('添加成功');
                     // window.location.reload();
                 }
              });
@@ -340,7 +346,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
     // 同步数据
     var tongbu = function () { 
         $.ajax({
-            url:'http://test.micejiazu.cn/userCtrl/sysnc.do',
+            url:testUrl+"/userCtrl/sysnc.do",
             data:{
                 appid:getQueryString("appid")
             },

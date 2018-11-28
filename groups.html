@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>公众号列表</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/groups.css">
-    <script src="js/jquery-2.2.4.js"></script>
-    <script src="js/js.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/groups.css">
+    <script src="../static/js/jquery-2.2.4.js"></script>
+    <script src="../static/js/js.js"></script>
     <style>
         .modal-content{
             width: auto;
@@ -22,7 +22,7 @@
         <a class="titles" href="#">源点互动</a>
         <div class="clearfix">
             <ul class="lis pull-left"></ul>
-            <button type="button" class="btn btn-default pull-right" style="margin-right: 52px;margin-top: 10px" id="out">登出</button>
+            <button type="button" class="btn btn-default pull-right" style="margin-right: 52px;margin-top: 10px" id="out" onclick="out()">登出</button>
         </div>
     </div>
 </nav>
@@ -32,7 +32,7 @@
             <div class="right">
                 <p>微信公众号列表</p>
                 <div  class="addbox">
-                    <button type="button" class="btn btn-primary " >创建新标签</button>
+                    <button type="button" class="btn btn-primary " id="addbox">创建新标签</button>
                     <div class="groupsbox modal-content">
                         <div class="form-group">
                             <label>创建标签</label>
