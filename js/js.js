@@ -348,7 +348,9 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
         $.ajax({
             url:testUrl+"/userCtrl/sysnc.do",
             data:{
-                appid:getQueryString("appid")
+                appid:getQueryString("appid"),
+                pageSize:10,
+                currentPage:1
             },
             dataType:"text",
             success: function(data){
