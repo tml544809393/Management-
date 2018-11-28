@@ -107,6 +107,7 @@ function shujubangding(template_id,id){
             },
             dataType: "json",
             success: function (data) {
+                $(".optiona").empty();
                 $.each(data.template_list,function (index,obj) {
                         var options = `<option value="${obj.template_id}" class="optiona">${obj.title}</option>`;
                             $("#select").append(options);
