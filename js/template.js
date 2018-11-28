@@ -1,11 +1,9 @@
+//var path = "http://test.micejiazu.cn";
+var path = "http://shenxiu.micejiazu.cn";
 // 模板群发接口
-
 function templateparm(){
-    console.log("参数封装");
     var btn = $("#select").val()
-
     var url_id = $("#"+btn+"_url_id").val()
-    console.log(url_id)
     var params = "{\"template_id\":\""+btn+"\",\"url\":\""+url_id+"\",\"data\":{";
     var len = $("#"+btn+" ul li").length;
     $("#"+btn+" ul li").each(function(index,val){
@@ -20,8 +18,6 @@ function templateparm(){
             params += "\"keyword"+index+"\":{\"value\":\""+input_value+"\",\"color\":\""+input_color+"\"},"
         }
     })
-    console.log("params::::::"+params);
-
     return params ;
  }
     var tempcolor = '';
@@ -32,15 +28,11 @@ function templateparm(){
         layout:'rgbhex',
         color:'#000',
         onSubmit:function(hsb,hex,rgb,el) {
-        
-            $(el).css('background-color', '#'+hex);
-            console.log('#'+hex);
+        		$(el).css('background-color', '#'+hex);
                 $('#'+template_id+'_template-size_'+id).children("span").css('color', '#'+hex);
                 $('#'+template_id+'_template-input_color'+id).val('#'+hex);
                 $(el).colpickHide();
                 var tempcolor =  $('#'+template_id+'_template-size_'+id).children("span").css('color', '#'+hex);
-           
-
         }
         })
         .css('background-color', '#000');
@@ -52,7 +44,6 @@ function shujubangding(template_id,id){
         set:function(val){
             
             document.getElementById(template_id+'_template-input_'+id).value = val;
-            // console.log(val)
             if(val != ""){
                 $("#"+template_id+'_template-size_'+id).children("span").html(val);
             }
@@ -62,8 +53,6 @@ function shujubangding(template_id,id){
         obj.hellos = e.target.value;
     };
     obj.hellos = "";
-
-
 }
   
     function moBanJieXi(obj){
@@ -72,28 +61,19 @@ function shujubangding(template_id,id){
         var array = str2.split("_");
         var fonts_start = `<div class='template-two sel' id='${obj.template_id}'><ul>`;
         var weixin_preview_start = `<div class='template-font' id='${obj.template_id}_prview'><p class='template-time'>
-        <span>${obj.title}</span>
-        <em></em>
-</p>`;
+        							<span>${obj.title}</span>
+								    <em></em>
+								    </p>`;
 
 		for(var i=0;i<array.length-1;i++){
-            console.log("for array["+(i+1)+"] = "+array[i]+"【字段"+(i+1)+"】");
-            
-            fonts_start +=`
-                    <li>
-                    <span>${"字段"+(i+1)}</span>
+            fonts_start +=`<li><span>${"字段"+(i+1)}</span>
                     <input id="${obj.template_id}_template-input_`+(i+1)+`">
                     <input id="${obj.template_id}_template-input_color`+(i+1)+`" type="hidden">
                     <div class="color-box" id="${obj.template_id}_template-color_`+(i+1)+`"></div>
-                     </li>
-
-            `
-           
+                     </li>`
             weixin_preview_start += `
             <p id="${obj.template_id}_template-size_`+(i+1)+`">`+array[i]+`<span>【字段`+(i+1)+`】</span></p>
             `
-
-            
         }
         var fonts_end = `<li class="herfs">
                         <span>跳转</span>
@@ -102,18 +82,16 @@ function shujubangding(template_id,id){
                         </li></ul></div>`;
         var weixin_preview_end = `</div>`;
         $(".sc-kXeGPI").append(fonts_start+fonts_end);
-        // console.log(weixin_preview_start+weixin_preview_end);
         $(".template-main").append(weixin_preview_start+weixin_preview_end);
+        
         //数据绑定
         for(var i=0;i<array.length-1;i++){
             shujubangding(obj.template_id,i+1);
             colorbind(obj.template_id,i+1);
         }
-        
     }
     $("#select").bind("change",function(){
         var value = $(this).val();
-        // console.log("selected:::"+value);
         $("#"+value).show().siblings().hide();
         $("#"+value+"_prview").show().siblings().hide();
         $(".mobans").show()
@@ -121,33 +99,18 @@ function shujubangding(template_id,id){
    
     $("#Template").click(function(){
         $.ajax({
-            url: "http://192.168.0.206:8080/WechatManagePlatform/message/getTemplateList.do",
+            url: path+"/message/getTemplateList.do",
             type: "post",
             async: true,
             data: {
-                appid:'wx35bca71d3ae21094'
-                // getQueryString("appid")
+                appid:getQueryString("appid")
             },
             dataType: "json",
             success: function (data) {
                 $.each(data.template_list,function (index,obj) {
-                    console.log(data)
-                        var options =
-                            `
-                             <option value="${obj.template_id}" class="optiona">${obj.title}</option>
-                            `
-                            $("#select").append(options)
-                            moBanJieXi(obj)
-
-                            //填充微信预览器
-                            
-                            
-                            
-
-
-    
-                           
-                    
+                        var options = `<option value="${obj.template_id}" class="optiona">${obj.title}</option>`;
+                            $("#select").append(options);
+                            moBanJieXi(obj);
                 })
             }
         })
