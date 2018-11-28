@@ -351,7 +351,6 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
      // 上一页
      var upPage = function(){
         page++;
-        console.log(page)
         tongbus(page)
 
      }
