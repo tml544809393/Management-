@@ -349,7 +349,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
             url:testUrl+"/userCtrl/sysnc.do",
             data:{
                 appid:getQueryString("appid"),
-                pageSize:10,
+                pageSize:50,
                 currentPage:1
             },
             dataType:"text",
