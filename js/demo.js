@@ -395,15 +395,16 @@ $("#fasong").click(function(){
                                    <em>${content.news_item[0].title}</em>
                         `
                         var mains = '';
-                            for(var i=0;i<content.news_item.length;i++){
+                            for(var i=1;i<content.news_item.length;i++){
                                 mains += `
                                 <div class="image-two">
-                                <span>${content.news_item[0].title}</span>
-                                <img src="${content.news_item[0].thumb_url}">
-                                </div> </div> </li>
+                                <span>${content.news_item[i].title}</span>
+                                <img src="${content.news_item[i].thumb_url}">
+                                </div> 
                                 `
                             }
-                       var imagetext = `
+                        var mains_end =`</div> </li>` 
+                        var imagetext = `
                             <li>{0}</li>
                             <li>${obj.totalCount}</li>
                             <li>{1}</li>
@@ -452,7 +453,7 @@ $("#fasong").click(function(){
                         $(".send-one").append(html.format(obj.content,sendType, msgStatus));
                     }else if(obj.msgType == "mpnews"){
                         content = $.parseJSON(json);
-                        $(".send-one").append((begin+mains+imagetext).format(sendType, msgStatus));
+                        $(".send-one").append((begin+mains+mains_end+imagetext).format(sendType, msgStatus));
                     }
                 
             })
