@@ -345,12 +345,37 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     }
     // 同步数据
     var tongbu = function () { 
+        tongbus(1)
+     }
+     var page = 1;
+     // 上一页
+     var upPage = function(){
+        page++;
+        console.log(page)
+        tongbus(page)
+
+     }
+     // 下一页
+     var downPage = function(){
+         page--;
+         if(page == 0){
+            alert("已经是第一页了")
+            page = 1;
+            tongbus(page)
+         }else{
+            tongbus(page)
+            console.log(page)
+         }
+
+    }
+    // 同步数据接口
+    var tongbus = function(pages){
         $.ajax({
             url:testUrl+"/userCtrl/sysnc.do",
             data:{
                 appid:getQueryString("appid"),
                 pageSize:50,
-                currentPage:1
+                currentPage:pages
             },
             dataType:"text",
             success: function(data){
@@ -362,4 +387,4 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
             }
             
         })
-     }
+    }
