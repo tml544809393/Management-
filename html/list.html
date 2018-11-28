@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="../static/css/list.css">
     <script src="../static/js/jquery-2.2.4.js"></script>
     <script src="../static/js/js.js"></script>
+    <style>
+        .progress{
+            width: 300px;
+            display: inline-block;
+            margin-bottom:0;
+            margin-left: 50px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -107,7 +116,7 @@
                     </table>
                 </div>
                 <ul class="pager">
-                    <li class="previous disabled"><a href="javascript:;" onclick="downPage()">&larr; 上一页</a></li>
+                    <li class="previous "><a href="javascript:;" onclick="downPage()">&larr; 上一页</a></li>
                     <li class="next"><a href="javascript:;" onclick="upPage()">下一页 &rarr;</a></li>
                 </ul>
                 <!-- 无消息时显示 -->
@@ -154,7 +163,7 @@
 </html>
 <script>
    $(function(){
-        list();
+        list(1);
         Refresh();
    })
 </script>
