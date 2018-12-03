@@ -10,6 +10,7 @@ var weixinimgindex=0;
 	}
 	
 window.onload = function(){
+	$("#qunfa").click(function(){
            $(".cont").show();
            $(".yulan").show();
            $(".send").hide();
@@ -18,6 +19,7 @@ window.onload = function(){
            $(".template-main").hide();
            $(".yulans").show();
            $("#classify").val("senior");
+	});
    }
    // 获取弹窗
    var modal = document.getElementById('myModal');
@@ -58,7 +60,7 @@ window.onload = function(){
            $(".yulan").hide();
            $(".send").show();
        });
-//    $("#qunfa").click(function(){
+//   $("#qunfa").click(function(){
 //        $(".cont").show();
 //        $(".yulan").show();
 //        $(".send").hide();

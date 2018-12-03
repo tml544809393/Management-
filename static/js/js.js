@@ -16,6 +16,7 @@ $(function(){
 })
 //var testUrl = "http://test.micejiazu.cn";//测试域名
 var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
+// var testUrl = "http://192.168.0.206:8080/WechatManagePlatform" //本地
 
 // 登陆
     var login = function(){
@@ -124,15 +125,15 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     var CloseGroups = function(){
         $('.groupsbox').hide()
     }
-    
+    var page = 1;
     //粉丝列表接口 
-    var list = function(){
+    var list = function(page){
         $.ajax({ 
             url: testUrl+"/userCtrl/query.do",
             dataType:"json",
             data:{
-                pageSize:100,
-                currentPage:1,
+                pageSize:50,
+                currentPage:page,
                 appid:getQueryString("appid")
             },
             success: function(data){
@@ -142,9 +143,27 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                 }
                 $('#geshu').html(data.length);
                 $('#allfensi').html(data.length);
+                console.log(data)
                 fensiLists(data);
             }
         });
+    }
+     // 上一页
+     var upPage = function(){
+        page++;
+        list(page)
+     }
+     // 下一页
+     var downPage = function(){
+         page--;
+         if(page == 0){
+            alert("已经是第一页了")
+            page = 1;
+            list(page)
+         }else{
+            list(page)
+         }
+
     }
     //粉丝列表
     var fensiLists = function(obj){
@@ -196,7 +215,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
             country: '',
             province: '',
             city: '',
-            pageSize:100,                                                                                                  
+            pageSize:50,                                                                                                  
             currentPage:1 
         }
         console.log()
@@ -345,19 +364,28 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     }
     // 同步数据
     var tongbu = function () { 
+        tongbus(1)
+     }
+    // 同步数据接口
+    var tongbus = function(pages){
+        $('.progress').css('display','inline-block');
+       
         $.ajax({
             url:testUrl+"/userCtrl/sysnc.do",
             data:{
-                appid:getQueryString("appid")
+                appid:getQueryString("appid"),
+                pageSize:50,
+                currentPage:pages
             },
             dataType:"text",
             success: function(data){
-                console.log(data);
+                console.log(data.length);
                 history.go(0);
+                $('.progress').hide();
             },
             error:function(errorThrown){
                 console.log(errorThrown);
             }
             
         })
-     }
+    }
