@@ -10,7 +10,11 @@ var weixinimgindex=0;
 	}
 	
 window.onload = function(){
+<<<<<<< HEAD
 	$("#qunfa").click(function(){
+=======
+    $("#qunfa").click(function(){
+>>>>>>> branch 'master' of https://github.com/tml544809393/Management-.git
            $(".cont").show();
            $(".yulan").show();
            $(".send").hide();
@@ -19,7 +23,11 @@ window.onload = function(){
            $(".template-main").hide();
            $(".yulans").show();
            $("#classify").val("senior");
+<<<<<<< HEAD
 	});
+=======
+    })
+>>>>>>> branch 'master' of https://github.com/tml544809393/Management-.git
    }
    // 获取弹窗
    var modal = document.getElementById('myModal');
