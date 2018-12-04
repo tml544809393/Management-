@@ -16,7 +16,7 @@ $(function(){
 })
 //var testUrl = "http://test.micejiazu.cn";//测试域名
 var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
-// var testUrl = "http://192.168.0.206:8080/WechatManagePlatform" //本地
+//var testUrl = "http://192.168.0.206:8080/WechatManagePlatform" //本地
 
 // 登陆
     var login = function(){
@@ -114,8 +114,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                     appid:getQueryString("appid")
                 },
                 success: function(data){
-                    console.log(data)
-                    
+                    console.log(data);
                     window.location.reload()
                 }
             });
@@ -361,31 +360,4 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                 <li><a href="groups.html?appid=`+ appid +`">自动标签</a></li>
                 <li><a href="weixin.html?appid=`+ appid +`">管理中心</a></li>`;
         $('.lis').html(nav);
-    }
-    // 同步数据
-    var tongbu = function () { 
-        tongbus(1)
-     }
-    // 同步数据接口
-    var tongbus = function(pages){
-        $('.progress').css('display','inline-block');
-       
-        $.ajax({
-            url:testUrl+"/userCtrl/sysnc.do",
-            data:{
-                appid:getQueryString("appid"),
-                pageSize:50,
-                currentPage:pages
-            },
-            dataType:"text",
-            success: function(data){
-                console.log(data.length);
-                history.go(0);
-                $('.progress').hide();
-            },
-            error:function(errorThrown){
-                console.log(errorThrown);
-            }
-            
-        })
     }
