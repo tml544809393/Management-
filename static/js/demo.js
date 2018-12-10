@@ -10,11 +10,7 @@ var weixinimgindex=0;
 	}
 	
 window.onload = function(){
-<<<<<<< HEAD
-	$("#qunfa").click(function(){
-=======
     $("#qunfa").click(function(){
->>>>>>> branch 'master' of https://github.com/tml544809393/Management-.git
            $(".cont").show();
            $(".yulan").show();
            $(".send").hide();
@@ -23,11 +19,7 @@ window.onload = function(){
            $(".template-main").hide();
            $(".yulans").show();
            $("#classify").val("senior");
-<<<<<<< HEAD
 	});
-=======
-    })
->>>>>>> branch 'master' of https://github.com/tml544809393/Management-.git
    }
    // 获取弹窗
    var modal = document.getElementById('myModal');
@@ -401,7 +393,7 @@ $("#fasong").click(function(){
                         <ol>
                             <li class="image-text">
                                 <div class="image-box">
-                                   <img src="${content.news_item[0].thumb_url}">
+                                `+loadweixinimg(content.news_item[0].thumb_url)+`
                                    <em>${content.news_item[0].title}</em>
                         `
                         var mains = '';
@@ -409,7 +401,7 @@ $("#fasong").click(function(){
                                 mains += `
                                 <div class="image-two">
                                 <span>${content.news_item[i].title}</span>
-                                <img src="${content.news_item[i].thumb_url}">
+                                `+loadweixinimg(content.news_item[i].thumb_url)+`
                                 </div> 
                                 `
                             }

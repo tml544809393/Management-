@@ -1,7 +1,8 @@
 $(function(){
     var appid = getQueryString("appid");
+    var nickName = getQueryString("nickName");
     if(appid){
-        clickAppids(appid);
+        clickAppids(appid,nickName);
     }else{
         // alert('/')
     }
@@ -16,7 +17,7 @@ $(function(){
 })
 //var testUrl = "http://test.micejiazu.cn";//测试域名
 var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
-//var testUrl = "http://192.168.0.206:8080/WechatManagePlatform" //本地
+//var testUrl = "http://localhost:8080/WechatManagePlatform/" //本地
 
 // 登陆
     var login = function(){
@@ -59,7 +60,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     var getQueryString = function(name) { 
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
         var r = window.location.search.substr(1).match(reg); 
-        if (r != null) return unescape(r[2]); 
+        if (r != null) return decodeURI(r[2]); 
         return null; 
     } 
 
@@ -96,7 +97,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                 biaoqian += `<option value="`+element.id+`">`+element.name+`</option>`
         });
         $('#biaoqianmingzi').html(biaoqian);
-        $('#xuanzeBiaoqian').html(biaoqian);
+        $('#xuanzeBiaoqian').html("<option value=''>微信标签</option>"+biaoqian);
         $('#lists').html(res)
     }
      //  新增 标签
@@ -136,14 +137,14 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                 appid:getQueryString("appid")
             },
             success: function(data){
-                console.log(data.length) 
+                console.log(data.list.length) 
                 if(data.length == 0){
                     $('.zanwu').show();
                 }
-                $('#geshu').html(data.length);
-                $('#allfensi').html(data.length);
-                console.log(data)
-                fensiLists(data);
+                $('#geshu').html(data.total);
+                $('#allfensi').html(data.total);
+                //console.log(data)
+                fensiLists(data.list);
             }
         });
     }
@@ -220,6 +221,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
         console.log()
         $.ajax({ 
             url: testUrl+"/userCtrl/criteriaQuery.do",
+            type:"POST",
             dataType:"json",
             data:data,
             success: function(data){
@@ -228,7 +230,9 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                     $('.zanwu').show();
                     $('.zanwu').html('暂无结果');
                 }else{
-                    fensiLists(data);
+                	$('#geshu').html(data.total);
+                    $('#allfensi').html(data.total);
+                    fensiLists(data.list);
                 }
             }
         });
@@ -339,7 +343,7 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
                             res += `<td class="active">服务号</td>`
                         }
                     res += `<td class="active">
-                            <input type="button" value="功能管理" class="btn btn-info" onclick="clickAppid('`+element.authorizationAppid+`')"/>
+                            <input type="button" value="功能管理" class="btn btn-info" onclick="clickAppid('`+element.authorizationAppid+`','`+element.nickName+`')"/>
                         </td>
                     </tr>`
                 });
@@ -349,15 +353,17 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     }
 
     
-    var clickAppid = function(appid){
-        clickAppids(appid)
-        window.location.href = "list.html?appid="+appid;
+    var clickAppid = function(appid,nickName){
+        clickAppids(appid,nickName);
+        window.location.href = "list.html?appid="+appid+"&nickName="+nickName;
     }
     // 动态生成appid url
-    var clickAppids = function(appid){
-        var nav = `<li><a href="index.html?appid=`+ appid +`">群发消息</a></li>
-                <li><a href="list.html?appid=`+ appid +`">粉丝列表</a></li>
-                <li><a href="groups.html?appid=`+ appid +`">自动标签</a></li>
-                <li><a href="weixin.html?appid=`+ appid +`">管理中心</a></li>`;
+    function clickAppids(appid,nickName){
+    	//console.log("nickName:::"+nickName);
+        var nav = `<li><a href="index.html?appid=`+ appid +`&nickName=`+nickName+`">群发消息</a></li>
+                <li><a href="list.html?appid=`+ appid +`&nickName=`+nickName+`">粉丝列表</a></li>
+                <li><a href="groups.html?appid=`+ appid +`&nickName=`+nickName+`">自动标签</a></li>
+                <li><a href="weixin.html?appid=`+ appid +`&nickName=`+nickName+`">管理中心</a></li>
+                <li>`+nickName+`</li>`;
         $('.lis').html(nav);
     }
