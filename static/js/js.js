@@ -271,13 +271,10 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
     // 开始批量操作
     var begin = function(){
         var data = "";
+        var checked = $("input[name=asd]:checked").val();
         var allopenid = new Array(); // openid
-        if($("input[name=asd]:checked").val() == 0){
+        if(checked == 0){
             $("input[name=box]:checked").each(function(){
-                allopenid.push("\""+$(this).attr('openid')+"\"");
-            })
-        }else{
-            $("input[name=box]").each(function(){
                 allopenid.push("\""+$(this).attr('openid')+"\"");
             })
         }
@@ -290,38 +287,74 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 
         data = '{"openid_list":['+allopenid+'],"tagid":'+biaoqianid+'}'   
         console.log(data)
-        overOn(opt,data)
+        overOn(opt,data,checked)
     }
     // 开始批量 接口调用
-    var overOn = function(s,datas){
-        if(s == 0){ //添加
-            $.ajax({ 
-                url: testUrl+"/tagsCtrl/batchTagging.do",
-                dataType:"json",
-                data:{
-                    appid:getQueryString("appid"),
-                    data:datas    
-                },
-                success: function(data){
-                    console.log(data);
-                    alert('添加成功');
-                    // window.location.reload();
-                }
-             });
-        }else if(s == 1){ //移除
-            $.ajax({ 
-                url: testUrl+"/tagsCtrl/batchUnTagging.do",
-                dataType:"json",
-                data:{
-                    appid:getQueryString("appid"),
-                    data:datas    
-                },
-                success: function(data){
-                    console.log(data);
-                    // window.location.reload();
-                }
-             });
-        }
+    var overOn = function(s,datas,checked){
+	    	var opt = "";
+	    	var tips = "";
+	    	if(s == 0){
+	    		opt = "add";
+	    	}else{
+	    		opt = "remove"; 
+	    	}
+	    	if(checked == 0){
+	    		$.ajax({ 
+	                url: testUrl+"/tagsCtrl/batchTagging.do",
+	                dataType:"text",
+	                data:{
+	                    appid:getQueryString("appid"),
+	                    data:datas,
+	                    opt:opt
+	                },
+	                success: function(data){
+	                    console.log(data);
+	                    if(s == 0){
+	                    	if(data == "success"){
+	                        	alert("添加成功");
+	                        }else{
+	                        	alert("添加失败");
+	                        }
+	        	    	}else{
+	        	    		if(data == "success"){
+	                        	alert("移除成功");
+	                        }else{
+	                        	alert("移除失败");
+	                        }
+	        	    	}
+	                }
+	             });
+	    	}else if(checked == 1){
+	    		$.ajax({ 
+	                url: testUrl+"/tagsCtrl/selBatchTagging.do",
+	                dataType:"text",
+	                data:{
+	                    appid:getQueryString("appid"),
+	                    tagid:$('#biaoqianmingzi').val(),
+	                    nickname:$('input[name=openid]').val(),
+	                    subscribeScene:$('#guanzhulaiyuan').val(),
+	                    subscribe:$('input[name="subscribe"]:checked').val(),
+	                    sex:$('input[name="sex"]:checked').val(),
+	                    opt:opt
+	                },
+	                success: function(data){
+	                    console.log(data);
+	                    if(s == 0){
+	                    	if(data == "success"){
+	                        	alert("添加成功");
+	                        }else{
+	                        	alert("添加失败");
+	                        }
+	        	    	}else{
+	        	    		if(data == "success"){
+	                        	alert("移除成功");
+	                        }else{
+	                        	alert("移除失败");
+	                        }
+	        	    	}
+	                }
+	             });
+	    	}
     }
 
     //微信公众号列表
