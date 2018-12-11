@@ -286,8 +286,10 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
         var biaoqianid = $('#biaoqianmingzi').val();
 
         data = '{"openid_list":['+allopenid+'],"tagid":'+biaoqianid+'}'   
-        console.log(data)
-        overOn(opt,data,checked)
+        console.log(data);
+        
+        //批量操作
+        overOn(opt,data,checked);
     }
     // 开始批量 接口调用
     var overOn = function(s,datas,checked){
@@ -325,6 +327,9 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 	                }
 	             });
 	    	}else if(checked == 1){
+	    		//显示进度条
+	            $('#tag_progress').css('display','inline-block');
+	            
 	    		$.ajax({ 
 	                url: testUrl+"/tagsCtrl/selBatchTagging.do",
 	                dataType:"text",
@@ -354,6 +359,12 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 	        	    	}
 	                }
 	             });
+	    		
+	    		//清楚已存在的定时器
+	            clearInterval(tag_timer);
+	            sleep(1500);
+	            //创建定时器
+	            tag_timer = setInterval(tag_progress,2000);
 	    	}
     }
 
