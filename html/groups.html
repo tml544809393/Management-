@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>公众号列表</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/groups.css">
+    <script src="../static/js/jquery-2.2.4.js"></script>
+    <script src="../static/js/js.js"></script>
+    <style>
+        .modal-content{
+            width: auto;
+            height: auto;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<nav class="topbar">
+    <div class="navs">
+        <a class="titles" href="#">源点互动</a>
+        <div class="clearfix">
+            <ul class="lis pull-left"></ul>
+            <button type="button" class="btn btn-default pull-right" style="margin-right: 52px;margin-top: 10px" id="out" onclick="out()">登出</button>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <div class=" row">
+        <div class=" col-sm-12 col-md-12 col-xl-12">
+            <div class="right">
+                <p>微信公众号列表</p>
+                <div  class="addbox">
+                    <button type="button" class="btn btn-primary " id="addbox">创建新标签</button>
+                    <div class="groupsbox modal-content">
+                        <div class="form-group">
+                            <label>创建标签</label>
+                            <input type="text" placeholder="标签名称" class="form-control groupsName"/>
+                        </div>
+                        <div style="text-align: right;">
+                            <input class="btn btn-default" type="button" value="取消" onclick="CloseGroups();">
+                            <input class="btn btn-primary" type="button" value="确定" onclick="addGroups();">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered tableBox">
+                    <thead>
+                        <tr>
+                            <th>标签名称</th>
+                            <th>标签ID</th>
+                            <th>粉丝人数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lists">
+                        
+                    </tbody>
+                </table>
+                <!-- 无消息时显示 -->
+                <div class="zanwu">暂无粉丝</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        Refresh();
+    })
+</script>
+</body>
+</html>
