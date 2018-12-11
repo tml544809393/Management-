@@ -192,7 +192,8 @@ window.onload = function(){
             type:"news",
             offset:0,
             count:10,
-            appid:getQueryString("appid")
+            appid:'wx35bca71d3ae21094'
+            // getQueryString("appid")
         },
         dataType: "json",
         success: function (data) {
