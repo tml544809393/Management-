@@ -1,6 +1,6 @@
 var path = "http://test.micejiazu.cn";
 // var path = "http://shenxiu.micejiazu.cn";
-// 模板群发接口
+// 模板群发接口git add 
 function templateparm(){
     var btn = $("#select").val()
     var url_id = $("#"+btn+"_url_id").val()
