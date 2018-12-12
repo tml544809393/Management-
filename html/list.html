@@ -232,20 +232,21 @@
                 $("#tag_progress_bar").css({width:data});
                 $("#tag_bartext").text(data);
                 
-                if(data == "0"){
+                /* if(data == "0"){
                 	chongshicishu++;
-                	if(chongshicishu > 3){
+                	if(chongshicishu > 5){
+                		console.log("=====重试=====");
                 		clearInterval(tag_timer);
         	            $("#tag_progress_bar").css({width:data});
                         $("#tag_bartext").text(data);
         	            $('#tag_progress').hide();
                 	}
-                }
+                } */
                 if(data == "100.00%" || data == "0.00%"){
     	            clearInterval(tag_timer);
     	            $("#tag_progress_bar").css({width:data});
                     $("#tag_bartext").text(data);
-    	            $('#tag_progress').hide();
+    	            //$('#tag_progress').hide();
                 }
             },error:function(data){
             	clearInterval(tag_timer);
