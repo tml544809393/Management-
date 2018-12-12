@@ -125,10 +125,22 @@ window.onload = function(){
             $(".yulans").html(stextArea);
             $("#myModal").hide();
         }
+    }else if(msgtype=="mpnews"){
+        $(".yulans").html(view);
+        $(".grap").css("width","100%");
+        $("#myModal").hide();
+        
     }else{
         $("#myModal").hide();
     }
 });
+$(".xuanze").click(function(){
+    $(".ss").empty()
+})
+function myrefresh()
+{
+   window.location.reload();
+}
    $(".duixiang ul li").click(
        function() {
            $(this).css("background","#6f7eff").siblings().css("background","#fff");
@@ -183,6 +195,7 @@ window.onload = function(){
 
 
  //////////////////////////////////// 同步图文消息列表
+ var view = '';
  $(".tongbu").click(function(){
     $.ajax({
         url: path+"/message/getMaterialList.do",
@@ -195,7 +208,12 @@ window.onload = function(){
             appid:getQueryString("appid")
         },
         dataType: "json",
+        beforeSend:function(){
+            var html = '<img src="../static/img/load.gif">';
+            $("#load").html(html);
+        },
         success: function (data) {
+            $("#load").html('');
             $(".ss").empty()
             $.each(data.item, function (index, obj) {
                 var json = $.parseJSON(JSON.stringify(obj));
@@ -227,8 +245,9 @@ window.onload = function(){
                         `+loadweixinimg(obj.content.news_item[i].thumb_url)+`
                      </div>`;
                     }
-                    var end =  `<div class="mase"></div> `;
-                    $(".ss").append(start+body+end);
+                    var end =  `<div class="mase"><img src="../static/img/true.png"></div> `;
+                     view = start+body+end
+                    $(".ss").append(view);
                 }else{
                     // 单图文
                 $.each(obj.content.news_item,function(index, obj){
@@ -237,7 +256,7 @@ window.onload = function(){
                                 <p><span>${times}</span><a href="${obj.url}" target="_blank">查看链接</a></p>
                                 <div class="tuwenimg">`+loadweixinimg(obj.thumb_url)+`
                                 <em>${obj.title}</em>
-                                <div class="mase"></div>
+                                <div class="mase"><img src="../static/img/true.png"></div>
                             </div>
                     `)
                 });
@@ -465,3 +484,6 @@ $("#fasong").click(function(){
         }
     })
 })
+
+
+
