@@ -91,7 +91,7 @@
                 <div>
                     <button type="button" class="btn btn-primary" onclick="tongbu()">同步数据</button>
                     <button type="button" class="btn btn-default" onclick="tanchuShow()">批量操作</button>
-                    <div class="progress">
+                    <div class="progress" id="sync_progress">
                         <div id="bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                             <span id="bartext">0% 完成</span>
                         </div>
@@ -172,23 +172,25 @@
    var timer;
    //给用户批量打标签定时器
    var tag_timer;
+   //重试次数
+   var chongshicishu = 0;
    $(function(){
         list(1);
         Refresh();
         
         //清楚定时器(进度条)
         clearInterval(timer);
-        $('.progress').css('display','inline-block');
+        $('#sync_progress').css('display','inline-block');
         timer = setInterval(function(){
         	progress();
         }, 2000);
         
         //清楚定时器(进度条)
-        clearInterval(tag_timer);
+        /* clearInterval(tag_timer);
         $('#tag_progress').css('display','inline-block');
         tag_timer = setInterval(function(){
         	tag_progress();
-        }, 2000);
+        }, 2000); */
    })
    
    function sleep(delay) {
@@ -212,7 +214,7 @@
     	            clearInterval(timer);
     	            $("#bar").css({width:data});
                     $("#bartext").text(data);
-    	            $('.progress').hide();
+    	            $('#sync_progress').hide();
                 }
             },error:function(data){
             	clearInterval(timer);
@@ -229,7 +231,17 @@
             success:function(data){
                 $("#tag_progress_bar").css({width:data});
                 $("#tag_bartext").text(data);
-                if(data == "100.00%" || data == "0" || data == "0.00%"){
+                
+                if(data == "0"){
+                	chongshicishu++;
+                	if(chongshicishu > 3){
+                		clearInterval(tag_timer);
+        	            $("#tag_progress_bar").css({width:data});
+                        $("#tag_bartext").text(data);
+        	            $('#tag_progress').hide();
+                	}
+                }
+                if(data == "100.00%" || data == "0.00%"){
     	            clearInterval(tag_timer);
     	            $("#tag_progress_bar").css({width:data});
                     $("#tag_bartext").text(data);
@@ -243,7 +255,7 @@
     
     function tongbu()
     {
-    	$('.progress').css('display','inline-block');
+    	$('#sync_progress').css('display','inline-block');
     	$.post(testUrl+"/userCtrl/sysnc.do",{appid:getQueryString("appid")},
     			function(data,status){});
     	
