@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>群发消息</title>
     <link rel="stylesheet" href="../static/css/bootstrap.css">
     <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="../static/css/colpick.css">
@@ -45,7 +45,7 @@
                 </div>
                 <h3>设置群发内容</h3>
                 <div style="height:1px; background:#ccc;"></div>
-                <span class="xuanze" id="myBtn">选择群发内容</span>
+                <span class="xuanze" id="myBtn" >选择群发内容</span>
                 <!-- 模板群发消息内容 -->
                 <div class="template">
                         <div class="template-one">
@@ -67,7 +67,7 @@
                 </div>
                 
                 <!-- 打开弹窗按钮 -->
-                    <div id="myModal" class="modal">
+                    <div id="myModal" class="modal" >
                         <!-- 弹窗内容 -->
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -96,6 +96,7 @@
                                         <div class="message">
                                             <div class="jin">仅显示微信图文消息</div>
                                             <span class="tongbu">同步</span>
+                                            <div id="load"></div>
                                             <div class="ss">
                                               
                                             </div>
@@ -121,6 +122,8 @@
                     </div>
                 <h3 style="padding-top:20px;">定时开关</h3>
                 <div style="height:1px; background:#ccc;"></div>
+                	<div class="button" id="preview" ><h6>手机预览</h6></div>
+                	&nbsp;&nbsp;&nbsp;
                     <div class="button" id="once" ><h6>立即群发</h6></div>
                     <!-- onclick="qunfa()" -->
             </div>
@@ -162,6 +165,6 @@
 <input type="hidden" id="classify"/>
 </body>
 </html>
-<script src="../static/js/template.js"/>
-<script src="../static/js/demo.js"/>
-<script src="../static/js/colpick.js" type="text/javascript"/>
+<script src="../static/js/template.js"></script>
+<script src="../static/js/demo.js"></script>
+<script src="../static/js/colpick.js" type="text/javascript"></script>
