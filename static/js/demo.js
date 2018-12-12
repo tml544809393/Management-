@@ -192,8 +192,7 @@ window.onload = function(){
             type:"news",
             offset:0,
             count:10,
-            appid:'wx35bca71d3ae21094'
-            // getQueryString("appid")
+            appid:getQueryString("appid")
         },
         dataType: "json",
         success: function (data) {
@@ -271,98 +270,101 @@ $("#once").click(function(){
    
     var sify = $("#classify").val();
     if(sify=="senior"){
-        alert("高级群发")
-   
-    var msgtype = $("#msgtype").val();
-    var tagid = $("#tagid").val()
-    var content = $(".yulans").html();
-    var params;
-    if(msgtype == "text"){
-        params={
-            appid:getQueryString("appid"),
-            msgtype:"text",
-            label:sid,
-            message:content
+        var r=confirm("确定高级群发消息吗？")
+        if (r==true){
+        	var msgtype = $("#msgtype").val();
+    	    var tagid = $("#tagid").val()
+    	    var content = $(".yulans").html();
+    	    var params;
+    	    if(msgtype == "text"){
+    	        params={
+    	            appid:getQueryString("appid"),
+    	            msgtype:"text",
+    	            label:sid,
+    	            message:content
+    	        }
+    	    }else if(msgtype == "mpnews"){
+    	        params={
+    				msgtype:"mpnews",
+    				label:sid,
+    				mediaId:tagid,
+    	            appid:getQueryString("appid")
+    	        }
+    	    }
+    	    $.ajax({
+    	        url:path+'/message/sendAllToLabel.do',
+    	        type:"post",
+    	        data:params,
+    	        dataType:"json",
+    	        success:function(data) {
+    	            if(data.result==0){
+    	                alert('发送失败，请重新发送')
+    	            }else{
+    	                alert('发送成功');
+    	            }
+    	        }
+    	    });
         }
-    }else if(msgtype == "mpnews"){
-        params={
-			msgtype:"mpnews",
-			label:sid,
-			mediaId:tagid,
-            appid:getQueryString("appid")
+    }else if(sify=="service"){
+	    // 客服群发接口
+    	var r=confirm("确定群发客服消息吗？")
+        if (r==true){
+        	var sify = $("#classify").val();
+	        var msgtype = $("#msgtype").val();
+	        var tagid = $("#tagid").val();
+	        var content = $(".yulans").html();
+	        var params;
+	        if(msgtype == "text"){
+	            params={
+	                appid:getQueryString("appid"),
+	                msgtype:"text",
+	                label:sid,
+	                message:content
+	            }
+	        }else if(msgtype == "mpnews"){
+	            params={
+	                msgtype:"mpnews",
+	                label:sid,
+	                mediaId:tagid,
+	                appid:getQueryString("appid")
+	            }
+	        }
+	        $.ajax({
+	            url:path+'/message/sendKFMsgToLable.do',
+	            type:"post",
+	            data:params,
+	            dataType:"json",
+	            success:function(data) {
+	                if(data.result==0){
+	                    alert('发送失败，请重新发送')
+	                }else{
+	                    alert('发送成功');
+	                }
+	            }
+	        });
         }
-    }
-    $.ajax({
-        url:path+'/message/sendAllToLabel.do',
-        type:"post",
-        data:params,
-        dataType:"json",
-        success:function(data) {
-            if(data.result==0){
-                alert('发送失败，请重新发送')
-            }else(
-                alert('发送成功')
-    )
-        }
-    })
-}else if(sify=="service"){
-    // 客服群发接口
-    var sify = $("#classify").val();
-        alert("客服群发")
-        var msgtype = $("#msgtype").val();
-        var tagid = $("#tagid").val();
-        var content = $(".yulans").html();
-        var params;
-        if(msgtype == "text"){
-            params={
-                appid:getQueryString("appid"),
-                msgtype:"text",
-                label:sid,
-                message:content
-            }
-        }else if(msgtype == "mpnews"){
-            params={
-                msgtype:"mpnews",
-                label:sid,
-                mediaId:tagid,
-                appid:getQueryString("appid")
-            }
-        }
-        $.ajax({
-            url:path+'/message/sendKFMsgToLable.do',
-            type:"post",
-            data:params,
-            dataType:"json",
-            success:function(data) {
-                if(data.result==0){
-                    alert('发送失败，请重新发送')
-                }else(
-                    alert('发送成功')
-        )
-            }
-        })
-    
     }else if(sify=="templ"){
-        var params=templateparm()
-        alert("模板群发")
-        param={
-            appid:getQueryString("appid"),
-            label:sid,
-            templateMsg:params
-        }
-        $.ajax({
-            url:path+'/message/sendTemplateMsg.do',
-            type:"post",
-            data:param,
-            dataType:"json",
-            success:function(data) {
-              alert("模板群发成功")
-
+    	var r=confirm("确定群发模板消息吗？")
+        if (r==true){
+        	var params=templateparm()
+            param={
+                appid:getQueryString("appid"),
+                label:sid,
+                templateMsg:params
             }
-        })
+            $.ajax({
+                url:path+'/message/sendTemplateMsg.do',
+                type:"post",
+                data:param,
+                dataType:"json",
+                success:function(data) {
+                  alert("模板群发成功")
 
+                }
+            })
+        }
     }
-})
+});
 
 
 $("#fasong").click(function(){
@@ -377,8 +379,7 @@ $("#fasong").click(function(){
         },
         dataType: "json",
         success: function (data) {
-             var json = $.parseJSON(JSON.stringify(data));
-                
+            var json = $.parseJSON(JSON.stringify(data));
             $(".empt").empty()
             $.each(data,function(index,obj){
 
@@ -398,22 +399,23 @@ $("#fasong").click(function(){
                                    <em>${content.news_item[0].title}</em>
                         `
                         var mains = '';
-                            for(var i=1;i<content.news_item.length;i++){
+                        for(var i=1;i<content.news_item.length;i++){
                                 mains += `
                                 <div class="image-two">
                                 <span>${content.news_item[i].title}</span>
                                 `+loadweixinimg(content.news_item[i].thumb_url)+`
                                 </div> 
                                 `
-                            }
-                        var mains_end =`</div> </li>` 
+                        }
+                        var mains_end =`</div></li>` 
                         var imagetext = `
                             <li>{0}</li>
                             <li>${obj.totalCount}</li>
+                            <li>${obj.sentCount}</li>
+                            <li>${obj.errorCount}</li>
                             <li>{1}</li>
-                            <li>${createTime}</li>
-                            <li>详情</li>
-                    `  
+                            <li>${createTime}</li>`
+                    		//<li>详情</li>
                     }
                 }
 
