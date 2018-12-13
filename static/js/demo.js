@@ -19,6 +19,7 @@ window.onload = function(){
            $(".template-main").hide();
            $(".yulans").show();
            $("#classify").val("senior");
+           $("#myBtne").show();
 	});
    }
    // 获取弹窗
@@ -49,9 +50,18 @@ window.onload = function(){
    guanbi.onclick = function() {
        modal.style.display = "none";
    };
+   var modale = document.getElementById('myModale');
+     
+   // 打开弹窗的按钮对象
+   var btne = document.getElementById("myBtne");
+   btne.onclick = function() {
+       modale.style.display = "block";
+   }
    window.onclick = function(event) {
        if (event.target == modal) {
            modal.style.display = "none";
+       } else if(event.target == modale){
+        modale.style.display = "none";
        }
    }
    // 发送记录点击事件
@@ -59,6 +69,7 @@ window.onload = function(){
            $(".cont").hide();
            $(".yulan").hide();
            $(".send").show();
+           $("#myBtne").hide();
        });
 //   $("#qunfa").click(function(){
 //        $(".cont").show();
@@ -79,6 +90,7 @@ window.onload = function(){
        $(".template").hide();
        $(".yulans").show();
        $(".template-main").hide();
+       $("#myBtne").hide();
    })
    $("#Template").click(function(){
        $(".send").hide();
@@ -89,7 +101,7 @@ window.onload = function(){
        $(".yulans").hide();
        $(".template-main").show();
        $("#classify").val("templ");
-
+       $("#myBtne").hide();
    })
    // 选中li的颜色
    $(".uls ul li").click(
@@ -205,7 +217,8 @@ function myrefresh()
             type:"news",
             offset:0,
             count:10,
-            appid:getQueryString("appid")
+            appid:'wx35bca71d3ae21094',
+            // getQueryString("appid")
         },
         dataType: "json",
         beforeSend:function(){
