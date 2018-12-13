@@ -330,36 +330,36 @@ var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 	    		//显示进度条
 	            $('#tag_progress').css('display','inline-block');
 	            
-	    		$.ajax({ 
-	                url: testUrl+"/tagsCtrl/selBatchTagging.do",
-	                dataType:"text",
-	                data:{
-	                    appid:getQueryString("appid"),
-	                    tagid:$('#biaoqianmingzi').val(),
-	                    nickname:$('input[name=openid]').val(),
-	                    subscribeScene:$('#guanzhulaiyuan').val(),
-	                    subscribe:$('input[name="subscribe"]:checked').val(),
-	                    sex:$('input[name="sex"]:checked').val(),
-	                    opt:opt
-	                },
-	                success: function(data){
-	                    console.log(data);
-	                    if(s == 0){
-	                    	if(data == "success"){
-	                        	alert("添加成功");
-	                        }else{
-	                        	alert("添加失败");
-	                        }
-	        	    	}else{
-	        	    		if(data == "success"){
-	                        	alert("移除成功");
-	                        }else{
-	                        	alert("移除失败");
-	                        }
-	        	    	}
-	                }
-	             });
-	    		
+	            $.ajax({ 
+	    	    	url: testUrl+"/tagsCtrl/selBatchTagging.do",
+	    	    	dataType:"text",
+	    	    	data:{
+	    	    		appid:getQueryString("appid"),
+	    	    		tagid:$('#biaoqianmingzi').val(),
+	    	    		nickname:$('input[name=openid]').val(),
+	    	    		subscribeScene:$('#guanzhulaiyuan').val(),
+	    	    		subscribe:$('input[name="subscribe"]:checked').val(),
+	    	    		sex:$('input[name="sex"]:checked').val(),
+	    	    		opt:opt
+	    	    	},
+	    	    	success: function(data){
+	    	    		console.log(data);
+	    	    		if(s == 0){
+	    	    			if(data == "success"){
+	    	    				alert("添加成功");
+	    	    			}else{
+	    	    				alert("添加失败");
+	    	    			}
+	    	    		}else{
+	    	    			if(data == "success"){
+	    	    				alert("移除成功");
+	    	    			}else{
+	    	    				alert("移除失败");
+	    	    			}
+	    	    		}
+	    	    	}
+	    	    });
+	            
 	    		//清楚已存在的定时器
 	            clearInterval(tag_timer);
 	            sleep(1500);

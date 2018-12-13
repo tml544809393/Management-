@@ -172,8 +172,6 @@
    var timer;
    //给用户批量打标签定时器
    var tag_timer;
-   //重试次数
-   var chongshicishu = 0;
    $(function(){
         list(1);
         Refresh();
@@ -186,11 +184,11 @@
         }, 2000);
         
         //清楚定时器(进度条)
-        /* clearInterval(tag_timer);
+        clearInterval(tag_timer);
         $('#tag_progress').css('display','inline-block');
         tag_timer = setInterval(function(){
         	tag_progress();
-        }, 2000); */
+        }, 2000);
    })
    
    function sleep(delay) {
@@ -229,37 +227,15 @@
             data:{appid:getQueryString("appid")},
             dataType:'text',
             success:function(data){
-                $("#tag_progress_bar").css({width:data});
-                $("#tag_bartext").text(data);
-                
-<<<<<<< HEAD
-                /* if(data == "0"){
-                	chongshicishu++;
-                	if(chongshicishu > 5){
-                		console.log("=====重试=====");
-                		clearInterval(tag_timer);
-        	            $("#tag_progress_bar").css({width:data});
-                        $("#tag_bartext").text(data);
-        	            $('#tag_progress').hide();
-                	}
-                } */
-=======
-                if(data == "0"){
-                	chongshicishu++;
-                	if(chongshicishu > 3){
-                		clearInterval(tag_timer);
-        	            $("#tag_progress_bar").css({width:data});
-                        $("#tag_bartext").text(data);
-        	            $('#tag_progress').hide();
-                	}
-                }
->>>>>>> branch 'master' of https://github.com/tml544809393/Management-.git
-                if(data == "100.00%" || data == "0.00%"){
-    	            clearInterval(tag_timer);
-    	            $("#tag_progress_bar").css({width:data});
-                    $("#tag_bartext").text(data);
-    	            //$('#tag_progress').hide();
-                }
+	            if(data == "100.00%" || data == "0.00%" || data == "error"){
+	    	        clearInterval(tag_timer);
+	    	        $("#tag_progress_bar").css({width:data});
+	                $("#tag_bartext").text(data);
+	    	        $('#tag_progress').hide();
+	            }else{
+	            	$("#tag_progress_bar").css({width:data});
+	                $("#tag_bartext").text(data);
+	            }
             },error:function(data){
             	clearInterval(tag_timer);
             }
