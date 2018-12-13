@@ -217,8 +217,7 @@ function myrefresh()
             type:"news",
             offset:0,
             count:10,
-            appid:'wx35bca71d3ae21094',
-            // getQueryString("appid")
+            appid:getQueryString("appid")
         },
         dataType: "json",
         beforeSend:function(){

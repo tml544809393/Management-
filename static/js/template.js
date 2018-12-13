@@ -1,5 +1,5 @@
-var path = "http://test.micejiazu.cn";
-// var path = "http://shenxiu.micejiazu.cn";
+//var path = "http://test.micejiazu.cn";
+var path = "http://shenxiu.micejiazu.cn";
 // 模板群发接口git add 
 function templateparm(){
     var btn = $("#select").val()
@@ -115,47 +115,45 @@ function shujubangding(template_id,id){
                 })
             }
         })
-    })
-    // 手机预览
+    });
     
+    // 手机预览
     $("#sure").click(function(){
         var opendid = $(".modal-input").val();
-        console.log(opendid)
         var sify = $("#classify").val();
         var msgtype = $("#msgtype").val();
         var content = $(".yulans").html();
         var tagid = $("#tagid").val();
         $("#myModale").hide();
         var parame ;
-        // console.log(content)
-        if(sify=="senior"){
-            if(msgtype == "text"){
-    	        parame={
-                    appid:'wx35bca71d3ae21094',
-    	            msgType:"text",
-                    toUser:opendid,
-    	            content:content
-    	        }
-    	    }else if(msgtype == "mpnews"){
-    	        parame={
-                    msgType:"mpnews",
-                    toUser:opendid,
-    				mediaId:tagid,
-                    appid:'wx35bca71d3ae21094'
-                    // getQueryString("appid")
-    	        }
-    	    }
-        $.ajax({
-            url: path+"/message/msgPreview.do",
-            type: "post",
-            async: true,
-            data: parame,
-            dataType: "json",
-            success: function (data) {
-               alert("发送成功")
-            }
-        })
-    }
-    })
-
-  
+	        if(sify=="senior"){
+	            if(msgtype == "text"){
+	    	        parame={
+	                    appid:getQueryString("appid"),
+	    	            msgType:"text",
+	                    toUser:opendid,
+	    	            content:content
+	    	        }
+	    	    }else if(msgtype == "mpnews"){
+	    	        parame={
+	                    msgType:"mpnews",
+	                    toUser:opendid,
+	    				mediaId:tagid,
+	                    appid:getQueryString("appid")
+	    	        }
+	    	    }
+	            
+		        $.ajax({
+		            url: path+"/message/msgPreview.do",
+		            type: "post",
+		            async: true,
+		            data: parame,
+		            dataType: "json",
+		            success: function (data) {
+		               if(data.result == 1){
+		            	   alert("发送成功");
+		               }
+		            }
+		        });
+	     }
+    });
