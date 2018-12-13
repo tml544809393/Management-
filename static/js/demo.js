@@ -1,4 +1,6 @@
+var view = '';
 var weixinimgindex=0;
+
 	function loadweixinimg(url) {
 	      weixinimgindex++;
 	      window['img'+weixinimgindex] = '<img id="img' + weixinimgindex + '" src=\'' + url + '?' + Math.random() + '\' onload=\'parent.showImg(this,'+weixinimgindex+');\'/>';
@@ -138,17 +140,15 @@ window.onload = function(){
             $("#myModal").hide();
         }
     }else if(msgtype=="mpnews"){
-        $(".yulans").html(view);
-        $(".grap").css("width","100%");
         $("#myModal").hide();
         
     }else{
         $("#myModal").hide();
     }
 });
-$(".xuanze").click(function(){
-    $(".ss").empty()
-})
+// $(".xuanze").click(function(){
+//     $(".ss").empty()
+// })
 function myrefresh()
 {
    window.location.reload();
@@ -207,7 +207,7 @@ function myrefresh()
 
 
  //////////////////////////////////// 同步图文消息列表
- var view = '';
+ 
  $(".tongbu").click(function(){
     $.ajax({
         url: path+"/message/getMaterialList.do",
@@ -261,6 +261,7 @@ function myrefresh()
                     var end =  `<div class="mase"><img src="../static/img/true.png"></div> `;
                      view = start+body+end
                     $(".ss").append(view);
+                   
                 }else{
                     // 单图文
                 $.each(obj.content.news_item,function(index, obj){
@@ -285,6 +286,9 @@ function myrefresh()
                                 $(this).find('.mase').show();
                                 var meadid=$(this).attr("media_id")
                                 $("#tagid").val(meadid)
+                                var qw = $(this).clone()
+                                $(".yulans").html(qw).find(".mase").hide()
+                                qw.css("width","100%")
                             }else{
                                 $(this).find('.mase').hide();
                             }
