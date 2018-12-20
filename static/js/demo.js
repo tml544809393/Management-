@@ -300,6 +300,28 @@ function myrefresh()
     });
 })
 
+function isStrEmpty(str){
+	 if(str != "" && str != undefined && str != null){
+	    	return true;
+	 }else{
+		    return false;
+	 }
+}
+function gaojiqunfa(params){
+	$.ajax({
+        url:path+'/message/sendAllToLabel.do',
+        type:"post",
+        data:params,
+        dataType:"json",
+        success:function(data) {
+            if(data.result==0){
+                alert('发送失败，请重新发送')
+            }else{
+                alert('发送成功');
+            }
+        }
+    });
+}
 // 立即群发点击按钮
 $("#once").click(function(){
    
@@ -311,34 +333,37 @@ $("#once").click(function(){
     	    var tagid = $("#tagid").val()
     	    var content = $(".yulans").html();
     	    var params;
-    	    if(msgtype == "text"){
-    	        params={
-    	            appid:getQueryString("appid"),
-    	            msgtype:"text",
-    	            label:sid,
-    	            message:content
-    	        }
-    	    }else if(msgtype == "mpnews"){
-    	        params={
-    				msgtype:"mpnews",
-    				label:sid,
-    				mediaId:tagid,
-    	            appid:getQueryString("appid")
-    	        }
+    	    if(isStrEmpty(msgtype) && isStrEmpty(sid) && isStrEmpty(getQueryString("appid"))){
+    	    	if(msgtype == "text"){
+    	    		if(isStrEmpty(content)){
+    	    			params={
+    	        	            appid:getQueryString("appid"),
+    	        	            msgtype:"text",
+    	        	            label:sid,
+    	        	            message:content
+    	        	        }
+    	    			
+    	    			gaojiqunfa(params);
+    	    		}else{
+    	    			alert("请填写要发送的文本内容！！！");
+    	    		}
+        	        
+        	    }else if(msgtype == "mpnews"){
+        	    	if(isStrEmpty(tagid)){
+        	    		params={
+                	        	appid:getQueryString("appid"),
+                				msgtype:"mpnews",
+                				label:sid,
+                				mediaId:tagid
+                	        }
+        	    		gaojiqunfa(params);
+        	    	}else{
+        	    		alert("请选择要发送的图文消息！！！");
+        	    	}
+        	    }
+    	    }else{
+    	    	alert("请检查参数是否正确！！！");
     	    }
-    	    $.ajax({
-    	        url:path+'/message/sendAllToLabel.do',
-    	        type:"post",
-    	        data:params,
-    	        dataType:"json",
-    	        success:function(data) {
-    	            if(data.result==0){
-    	                alert('发送失败，请重新发送')
-    	            }else{
-    	                alert('发送成功');
-    	            }
-    	        }
-    	    });
         }
     }else if(sify=="service"){
 	    // 客服群发接口
@@ -417,84 +442,86 @@ $("#fasong").click(function(){
             var json = $.parseJSON(JSON.stringify(data));
             $(".empt").empty()
             $.each(data,function(index,obj){
-
-                var json = $.parseJSON(JSON.stringify(obj.content));
-                var content;
-                if(obj.msgType == "mpnews"){
-                    content = $.parseJSON(json);
-                    var news_length = content.news_item.length;
-                    if(news_length>=1){
-                        var begin = `
-                        <div class="empt">
-                        <div class="neirong">
-                        <ol>
-                            <li class="image-text">
-                                <div class="image-box">
-                                `+loadweixinimg(content.news_item[0].thumb_url)+`
-                                   <em>${content.news_item[0].title}</em>
-                        `
-                        var mains = '';
-                        for(var i=1;i<content.news_item.length;i++){
-                                mains += `
-                                <div class="image-two">
-                                <span>${content.news_item[i].title}</span>
-                                `+loadweixinimg(content.news_item[i].thumb_url)+`
-                                </div> 
-                                `
-                        }
-                        var mains_end =`</div></li>` 
-                        var imagetext = `
-                            <li>{0}</li>
-                            <li>${obj.totalCount}</li>
-                            <li>${obj.sentCount}</li>
-                            <li>${obj.errorCount}</li>
-                            <li>{1}</li>
-                            <li>${createTime}</li>`
-                    		//<li>详情</li>
-                    }
-                }
-
-                var date = new Date(obj.createTime);
-                Y = date.getFullYear() + '-';
-                M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                D = date.getDate() + ' ';
-                h = date.getHours() + ':';
-                m = date.getMinutes() + ':';
-                s = date.getSeconds();
-                createTime = Y+M+D+h+m+s;
-                    var html=`
-                        <div class="empt">
-                        <div class="neirong">
-                        <ol>
-                            <li>{0}</li>
-                            <li>{1}</li>
-                            <li>${obj.totalCount}</li>
-                            <li>{2}</li>
-                            <li>${createTime}</li>
-                            <li>详情</li>
-                        </ol>
-                        </div>
-                        </div>
-                    ` 
-                        var msgStatus = "";
-                        var sendType = "";
-                        if(obj.msgStatus=="SEND_SUCCESS"){
-                            msgStatus = "发送成功";
-                        }else{
-                            msgStatus = "发送失败";
-                        }
-                        if(obj.sendType=="KF"){
-                            sendType = "客服群发";
-                        }else if(obj.sendType=="GJ"){
-                            sendType = "高级群发";
-                        }
-                    if(obj.msgType=="text"){
-                       
-                        $(".send-one").append(html.format(obj.content,sendType, msgStatus));
-                    }else if(obj.msgType == "mpnews"){
-                        content = $.parseJSON(json);
-                        $(".send-one").append((begin+mains+mains_end+imagetext).format(sendType, msgStatus));
-                    }
+            	if(obj.sendType != ""){
+            		var date = new Date(parseInt(obj.createTime));
+            		Y = date.getFullYear() + '-';
+            		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            		D = date.getDate() + ' ';
+            		h = date.getHours() + ':';
+            		m = date.getMinutes() + ':';
+            		s = date.getSeconds();
+            		createTime = Y+M+D+h+m+s;
+            		var json = $.parseJSON(JSON.stringify(obj.content));
+            		var content;
+            		if(obj.msgType == "mpnews"){
+            			content = $.parseJSON(json);
+            			var news_length = content.news_item.length;
+            			if(news_length>=1){
+            				var begin = `
+            				<div class="empt">
+            				<div class="neirong">
+            				<ol>
+            				<li class="image-text">
+            				<div class="image-box">
+            				`+loadweixinimg(content.news_item[0].thumb_url)+`
+            				<em>${content.news_item[0].title}</em>
+            				`
+            				var mains = '';
+            				for(var i=1;i<content.news_item.length;i++){
+            					mains += `
+            					<div class="image-two">
+            					<span>${content.news_item[i].title}</span>
+            					`+loadweixinimg(content.news_item[i].thumb_url)+`
+            					</div> 
+            					`
+            				}
+            				var mains_end =`</div></li>` 
+            				var imagetext = `
+            				<li>{0}</li>
+            				<li>${obj.totalCount}</li>
+            				<li>${obj.sentCount}</li>
+            				<li>${obj.errorCount}</li>
+            				<li>{1}</li>
+            				<li>${createTime}</li>`
+            				//<li>详情</li>
+            			}
+            		}
+            		
+            		
+            		var html=`
+            		<div class="empt">
+            		<div class="neirong">
+            		<ol>
+            		<li>{0}</li>
+            		<li>{1}</li>
+            		<li>${obj.totalCount}</li>
+            		<li>{2}</li>
+            		<li>${createTime}</li>
+            		<li>详情</li>
+            		</ol>
+            		</div>
+            		</div>
+            		` 
+            		var msgStatus = "";
+            		var sendType = "";
+            		if(obj.msgStatus=="SEND_SUCCESS" || obj.msgStatus=="send success"){
+            			msgStatus = "发送成功";
+            		}else{
+            			msgStatus = "发送失败";
+            		}
+            		if(obj.sendType=="KF"){
+            			sendType = "客服群发";
+            		}else if(obj.sendType=="GJ"){
+            			sendType = "高级群发";
+            		}
+            		if(obj.msgType=="text"){
+            			
+            			$(".send-one").append(html.format(obj.content,sendType, msgStatus));
+            		}else if(obj.msgType == "mpnews"){
+            			content = $.parseJSON(json);
+            			$(".send-one").append((begin+mains+mains_end+imagetext).format(sendType, msgStatus));
+            		}
+            	}
                 
             })
         }
