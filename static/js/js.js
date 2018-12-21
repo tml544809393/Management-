@@ -15,8 +15,8 @@ $(function(){
         $('.groupsbox').show()
     })
 })
-//var testUrl = "http://test.micejiazu.cn";//测试域名
-var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
+var testUrl = "http://test.micejiazu.cn";//测试域名
+//var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 //var testUrl = "http://localhost:8080/WechatManagePlatform/" //本地
 
 // 登陆
