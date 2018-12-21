@@ -53,18 +53,23 @@ window.onload = function(){
        modal.style.display = "none";
    };
    var modale = document.getElementById('myModale');
-     
+   var modali = document.getElementById('dele');
    // 打开弹窗的按钮对象
    var btne = document.getElementById("myBtne");
+//    var dele = document.getElementsByClassName("delet");
    btne.onclick = function() {
        modale.style.display = "block";
    }
+
+
    window.onclick = function(event) {
        if (event.target == modal) {
            modal.style.display = "none";
        } else if(event.target == modale){
         modale.style.display = "none";
-       }
+       } else if(event.target == modali){
+        modali.style.display = "none";
+       } 
    }
    // 发送记录点击事件
        $("#fasong").click(function(){
@@ -426,14 +431,32 @@ $("#once").click(function(){
     }
 });
 
+$(".delete-img").click(function(){
+    $.ajax({
+        url: path+"/message/delMsg.do",
+        type: "post",
+        async: true,
+        data: {
+            appid:'wx35bca71d3ae21094',
+            // getQueryString("appid"),
+        //    msgId: ,
+           articleIdx:xxx
+        },
+        dataType: "json",
+        success: function (data) {
 
+        }
+    })                      
+})
+    
 $("#fasong").click(function(){
     $.ajax({
         url: path+"/message/querySendRecord.do",
         type: "post",
         async: true,
         data: {
-            appid:getQueryString("appid"),
+            appid:'wx35bca71d3ae21094',
+            // getQueryString("appid"),
             pageSize:10,
             currentPage:1,
         },
@@ -473,20 +496,23 @@ $("#fasong").click(function(){
             					<span>${content.news_item[i].title}</span>
             					`+loadweixinimg(content.news_item[i].thumb_url)+`
             					</div> 
-            					`
+                                `
+                                
             				}
             				var mains_end =`</div></li>` 
             				var imagetext = `
             				<li>{0}</li>
             				<li>${obj.totalCount}</li>
             				<li>${obj.sentCount}</li>
-            				<li>${obj.errorCount}</li>
             				<li>{1}</li>
-            				<li>${createTime}</li>`
-            				//<li>详情</li>
+                            <li>${createTime}</li>
+                            <li class="delet" ${obj.msgId}>详情</li>
+                            `
             			}
             		}
-            		
+            		$(".delet").click(function(){
+                        $(".modali").show();
+                    })
             		
             		var html=`
             		<div class="empt">
@@ -524,7 +550,9 @@ $("#fasong").click(function(){
             	}
                 
             })
+
         }
+
     })
 })
 
