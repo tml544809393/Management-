@@ -444,7 +444,6 @@ $(".delete-img").click(function(){
         },
         dataType: "json",
         success: function (data) {
-
         }
     })                      
 })
@@ -483,17 +482,17 @@ $("#fasong").click(function(){
             				var begin = `
             				<div class="empt">
             				<div class="neirong">
-            				<ol>
+            				<ol id="${obj.msgId}">
             				<li class="image-text">
             				<div class="image-box">
             				`+loadweixinimg(content.news_item[0].thumb_url)+`
-            				<em>${content.news_item[0].title}</em>
+            				<em class="delete-span">${content.news_item[0].title}</em>
             				`
             				var mains = '';
             				for(var i=1;i<content.news_item.length;i++){
             					mains += `
             					<div class="image-two">
-            					<span>${content.news_item[i].title}</span>
+            					<span class="delete-span">${content.news_item[i].title}</span>
             					`+loadweixinimg(content.news_item[i].thumb_url)+`
             					</div> 
                                 `
@@ -506,12 +505,22 @@ $("#fasong").click(function(){
             				<li>${obj.sentCount}</li>
             				<li>{1}</li>
                             <li>${createTime}</li>
-                            <li class="delet" ${obj.msgId}>详情</li>
+                            <li class="delet" id="${obj.msgId}">详情</li>
                             `
+                            // var deleteheader = `
+                            //     <select name class="delete-option" >
+                            //     <option>${content.news_item[i].title}</option>
+                               
+                            // `
+                            // var deletemain = ` </select>`
+                            // var deletes = deleteheader + deletemain
             			}
             		}
             		$(".delet").click(function(){
                         $(".modali").show();
+                        var id = $(this).attr("id")
+                        var title= $("#"+id)
+                        console.log(title)
                     })
             		
             		var html=`
