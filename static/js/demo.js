@@ -432,20 +432,32 @@ $("#once").click(function(){
 });
 
 $(".delete-img").click(function(){
-    $.ajax({
-        url: path+"/message/delMsg.do",
-        type: "post",
-        async: true,
-        data: {
-            appid:'wx35bca71d3ae21094',
-            // getQueryString("appid"),
-        //    msgId: ,
-           articleIdx:xxx
-        },
-        dataType: "json",
-        success: function (data) {
-        }
-    })                      
+	var msgId = $("#msgId").val();
+	var selVal = $("#deleteMsg").val();
+	if(isStrEmpty(msgId)){
+		$.ajax({
+	        url: path+"/message/delMsg.do",
+	        type: "post",
+	        async: true,
+	        data: {
+	            appid:getQueryString("appid"),
+	            msgId: msgId,
+	            articleIdx:selVal
+	        },
+	        dataType: "json",
+	        success: function (data) {
+	        	if(data.errcode == "0"){
+	        		alert("删除成功");
+	        	}else{
+	        		console.log(data);
+	        		alert("删除失败");
+	        	}
+	        }
+	    })
+	}else{
+		alert("参数错误！！！");
+	}
+                          
 })
     
 $("#fasong").click(function(){
@@ -454,8 +466,7 @@ $("#fasong").click(function(){
         type: "post",
         async: true,
         data: {
-            appid:'wx35bca71d3ae21094',
-            // getQueryString("appid"),
+            appid:getQueryString("appid"),
             pageSize:10,
             currentPage:1,
         },
@@ -516,13 +527,6 @@ $("#fasong").click(function(){
                             // var deletes = deleteheader + deletemain
             			}
             		}
-            		$(".delet").click(function(){
-                        $(".modali").show();
-                        var id = $(this).attr("id")
-                        var title= $("#"+id)
-                        console.log(title)
-                    })
-            		
             		var html=`
             		<div class="empt">
             		<div class="neirong">
@@ -559,6 +563,17 @@ $("#fasong").click(function(){
             	}
                 
             })
+            //详情绑定cilic事件
+            $(".delet").click(function(){
+		            	var id = $(this).attr("id")
+            			$("#msgId").val(id);
+                        $(".modali").show();
+                        var title = $("#"+id+" li").find(".delete-span")
+                        $("#deleteMsg").empty();
+                        for(var i=0;i<title.length;i++){
+                        	$("#deleteMsg").append("<option value='"+(i+1)+"'>"+$(title[i]).html()+"</option>")
+                        }
+                    });
 
         }
 

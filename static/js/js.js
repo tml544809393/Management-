@@ -15,8 +15,8 @@ $(function(){
         $('.groupsbox').show()
     })
 })
-var testUrl = "http://test.micejiazu.cn";//测试域名
-//var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
+//var testUrl = "http://test.micejiazu.cn";//测试域名
+var testUrl = "http://shenxiu.micejiazu.cn";//正式域名
 //var testUrl = "http://localhost:8080/WechatManagePlatform/" //本地
 
 // 登陆
@@ -272,7 +272,7 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
     var begin = function(){
         var data = "";
         var checked = $("input[name=asd]:checked").val();
-        var allopenid = new Array(); // openid
+        var allopenid = new Array();
         if(checked == 0){
             $("input[name=box]:checked").each(function(){
                 allopenid.push("\""+$(this).attr('openid')+"\"");
@@ -286,10 +286,16 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
         var biaoqianid = $('#biaoqianmingzi').val();
 
         data = '{"openid_list":['+allopenid+'],"tagid":'+biaoqianid+'}'   
-        console.log(data);
+        //console.log(data);
         
         //批量操作
         overOn(opt,data,checked);
+        
+        $('#beginBatch').removeAttr('onclick');
+        var overOns = setInterval(function(){
+        	$('#beginBatch').attr('onclick','begin()');
+        	clearInterval(overOns);
+        }, 8000);
     }
     // 开始批量 接口调用
     var overOn = function(s,datas,checked){
@@ -360,6 +366,8 @@ var testUrl = "http://test.micejiazu.cn";//测试域名
 	    	    	}
 	    	    });
 	            
+	    	    //清空重试次数
+	            chongshicishu = 0;
 	    		//清楚已存在的定时器
 	            clearInterval(tag_timer);
 	            sleep(1500);

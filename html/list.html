@@ -160,7 +160,7 @@
 			  </div>
 			</div>
 
-            <button type="button" class="btn btn-primary" onclick="begin()">开始批量操作</button>
+            <button type="button" class="btn btn-primary" onclick="begin()" id="beginBatch">开始批量操作</button>
             <button type="button" class="btn btn-primary" onclick="closetanchu()">取消</button>
         </div>
     </div>
@@ -172,6 +172,8 @@
    var timer;
    //给用户批量打标签定时器
    var tag_timer;
+   //重试次数
+   var chongshicishu = 0;
    $(function(){
         list(1);
         Refresh();
@@ -227,6 +229,16 @@
             data:{appid:getQueryString("appid")},
             dataType:'text',
             success:function(data){
+            	if(data == "0"){
+                	chongshicishu++;
+                	if(chongshicishu > 5){
+                		clearInterval(tag_timer);
+        	            $("#tag_progress_bar").css({width:data});
+                        $("#tag_bartext").text(data);
+        	            $('#tag_progress').hide();
+                	}
+                }
+            	
 	            if(data == "100.00%" || data == "0.00%" || data == "error"){
 	    	        clearInterval(tag_timer);
 	    	        $("#tag_progress_bar").css({width:data});
